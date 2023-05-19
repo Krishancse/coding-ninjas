@@ -1,0 +1,54 @@
+
+Building a fully functional AI assistant like Jarvis requires complex programming and integration with various technologies. 
+However, I can provide you with a simple example of a text-based Jarvis-like assistant using java.
+Keep in mind that this example is a basic implementation and does not encompass the full capabilities of Jarvis
+
+
+import java.util.Scanner;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.io.IOException;
+
+public class Jarvis {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome! I am Jarvis, your personal assistant.");
+        System.out.println("How can I assist you today?");
+
+        while (true) {
+            System.out.print("User: ");
+            String command = scanner.nextLine();
+
+            if (command.contains("hello") || command.contains("hi")) {
+                System.out.println("Jarvis: Hello! How can I help you?");
+            } else if (command.contains("time")) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+                String time = dateFormat.format(new Date());
+                System.out.println("Jarvis: The current time is " + time);
+            } else if (command.contains("date")) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String date = dateFormat.format(new Date());
+                System.out.println("Jarvis: Today's date is " + date);
+            } else if (command.contains("search")) {
+                String searchTerm = command.replace("search", "").trim();
+                String searchUrl = "https://www.google.com/search?q=" + searchTerm;
+
+                try {
+                    Runtime.getRuntime().exec("cmd /c start " + searchUrl);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                System.out.println("Jarvis: I've opened a search for '" + searchTerm + "' in your browser.");
+            } else if (command.contains("quit")) {
+                System.out.println("Jarvis: Goodbye!");
+                break;
+            } else {
+                System.out.println("Jarvis: I'm sorry, but I didn't understand that command.");
+            }
+        }
+
+        scanner.close();
+    }
+}
